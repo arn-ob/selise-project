@@ -1,0 +1,48 @@
+<div class="header grid grid-rows-1 py-5 fixed z-10 top-0 w-full">
+  <div class="grid grid-cols-2">
+    <div class="ml-8">
+      <a routerLink="/hridoyahmed" class="logo text-[#16e4b7] 2xl:text-[40px] xl:text-[36px] 
+      lg:text-[34px] md:text-[34px] sm:text-[25px] font-[700]">Hridoy <span class="text-[#8b97c3]">Ahmed</span></a>
+    </div>
+    <div class="hamburger-menu flex justify-end">
+      <header id="top" class="flex-col sm:relative">
+        <nav id="site-menu" class="flex relative box-border">
+          <div
+            class="w-full sm:w-auto self-start sm:self-center flex flex-row sm:flex-none flex-no-wrap justify-between items-center mr-[20px]">
+            <button id="menuBtn"
+              class="hamburger 2xl:w-[48px] 2xl:h-[48px] xl:w-[42px] xl:h-[42px]
+            lg:w-[38px] lg:h-[38px] md:w-[34px] md:h-[34px] sm:w-[34px] sm:h-[34px] w-[30px] h-[30px] bg-[white] flex justify-center items-center z-[2]"
+              aria-expanded="true" type="button" (click)="navToggle();">
+              <span class="hamburger__top-bun"></span><span class="hamburger__bottom-bun"></span>
+            </button>
+          </div>
+          <div id="menu"
+            class="hidden px-3 py-2 bg-white absolute top-0 right-0 z-1 w-[20rem] mr-5 rounded-tl-[15px] rounded-br-[15px]">
+            <ul class="navbar-nav flex flex-col">
+              <li class="nav-item p-2">
+                <a class="cursor-pointer nav-link text-black font-[700]
+                text-[20px] pl-[5px]" [routerLink]="['/']" routerLinkActive="router-link-active">Home</a>
+              </li>
+              <li class="nav-item p-2">
+                <a class="nav-link text-black font-[700] text-[20px] pl-[5px]" [routerLink]="['/hridoyahmed/works']"
+                  routerLinkActive="router-link-active">Works</a>
+              </li>
+              <li class="nav-item p-2">
+                <h2 class="text-[gray] opacity-[.7] tracking-[.15em] text-[20px] pt-[10px] pl-[5px] font-[700]">SAY
+                  HELLO</h2>
+              </li>
+              <li class="nav-item p-2 ">
+                <a class="nav-link text-black font-[700] text-[20px] pl-[5px]"
+                  href="hridoy.ahmed150@gmail.com">hridoyahmed150@gmail.com</a>
+              </li>
+              <li class="nav-item p-2 ">
+                <a class="nav-link text-black font-[700] text-[20px] pl-[5px]"
+                  href="hridoyahmed.dev">Hridoyahmed.dev</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+    </div>
+  </div>
+</div>

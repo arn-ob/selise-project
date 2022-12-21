@@ -1,0 +1,100 @@
+@media (min-width: 350px) {
+  .pt-scroll {
+    padding-top: 51px;
+  }
+  /* HAMBURGER MENU */
+
+  .hamburger {
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+
+  .hamburger__top-bun,
+  .hamburger__bottom-bun {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background: #000;
+    transform: rotate(0);
+    transition: all 0.5s;
+  }
+
+  @media screen and (max-width: 1536px) {
+    .hamburger__top-bun,
+    .hamburger__bottom-bun {
+      width: 24px;
+    }
+  }
+  @media screen and (max-width: 1280px) {
+    .hamburger__top-bun,
+    .hamburger__bottom-bun {
+      width: 21px;
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    .hamburger__top-bun,
+    .hamburger__bottom-bun {
+      width: 18px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .hamburger__top-bun,
+    .hamburger__bottom-bun {
+      width: 15px;
+    }
+  }
+  @media screen and (max-width: 640px) {
+    .hamburger__top-bun,
+    .hamburger__bottom-bun {
+      width: 12px;
+    }
+  }
+
+  .hamburger:hover [class*="-bun"] {
+    background: #333;
+  }
+
+  .hamburger__top-bun {
+    transform: translateY(-5px);
+  }
+
+  .hamburger__bottom-bun {
+    transform: translateY(3px);
+  }
+
+  .open {
+    transform: rotate(90deg);
+    transform: translateY(-1px);
+  }
+
+  .open .hamburger__top-bun {
+    transform: rotate(45deg) translateY(0px);
+  }
+
+  .open .hamburger__bottom-bun {
+    transform: rotate(-45deg) translateY(0px);
+  }
+}
+
+#menu {
+  animation-name: rotateX;
+  animation-duration: 1s;
+  box-shadow: 0px 2px 16px -5px rgb(63 62 73 / 58%);
+}
+@keyframes rotateX {
+  from {
+    height: 0;
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 20rem;
+    height: 16rem;
+    opacity: 1;
+  }
+}
+
+.self-start {
+  box-shadow: 0px 2px 16px -5px rgb(63 62 73 / 58%);
+}
