@@ -1,0 +1,14 @@
+<div class="example-dialog-content" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragBoundary=".example-boundary">
+
+
+
+  <div mat-dialog-content style="overflow: unset;">
+
+  </div>
+
+  <div mat-dialog-actions align="end" class="buttons mt-2" style="padding: 1rem 0 0">
+    <button class="button is-white px-5 py-0" (click)="onDismiss()">{{cancel}}</button>
+    <button class="button is-success px-5 py-0" (click)="onConfirm()">{{confirm}}</button>
+  </div>
+
+</div>

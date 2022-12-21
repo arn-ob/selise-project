@@ -1,9 +1,28 @@
 <div class="container mx-auto pt-4">
-  <div class="create-task-button w-full flex justify-end">
-
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+  <div class="create-task-button w-full flex justify-end mb-6">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="openTaskModal()">
       Add Task
     </button>
+  </div>
 
+
+  <div class="task-container grid grid-cols-3 gap-6">
+    <div class="to-do border min-h-screen">
+
+      <div class="heading w-full bg-gray-400 text-center p-2 text-white text-xl font-semibold"> TO-Do </div>
+
+      <div class="task-list">
+        <app-task-card></app-task-card>
+      </div>
+    </div>
+
+    <div class="in-progress border min-h-screen">
+      <div class="heading w-full bg-gray-500 text-center p-2 text-white text-xl font-semibold"> In-Progress </div>
+
+    </div>
+    <div class="done border min-h-screen">
+      <div class="heading w-full bg-green-500 text-center p-2 text-white text-xl font-semibold"> Done </div>
+
+    </div>
   </div>
 </div>
