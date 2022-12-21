@@ -5,23 +5,39 @@
     </button>
   </div>
 
-
   <div class="task-container grid grid-cols-3 gap-6">
     <div class="to-do border min-h-screen">
 
       <div class="heading w-full bg-gray-400 text-center p-2 text-white text-xl font-semibold"> TO-Do </div>
 
       <div class="task-list">
-        <app-task-card></app-task-card>
+        <ng-container *ngFor="let item of todoTask">
+
+          <app-task-card [data]="item"></app-task-card>
+        </ng-container>
       </div>
     </div>
 
     <div class="in-progress border min-h-screen">
       <div class="heading w-full bg-gray-500 text-center p-2 text-white text-xl font-semibold"> In-Progress </div>
 
+      <div class="task-list">
+        <ng-container *ngFor="let item of progressTask">
+
+          <app-task-card [data]="item"></app-task-card>
+        </ng-container>
+      </div>
+
     </div>
     <div class="done border min-h-screen">
       <div class="heading w-full bg-green-500 text-center p-2 text-white text-xl font-semibold"> Done </div>
+
+      <div class="task-list">
+        <ng-container *ngFor="let item of doneTask">
+
+          <app-task-card [data]="item"></app-task-card>
+        </ng-container>
+      </div>
 
     </div>
   </div>

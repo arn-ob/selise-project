@@ -1,14 +1,203 @@
-<div class="example-dialog-content" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragBoundary=".example-boundary">
-
-
+<div class="example-dialog-content" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragBoundary=".example-boundary"
+  class="w-[800px]">
 
   <div mat-dialog-content style="overflow: unset;">
+    <form class="" [formGroup]="taskForm">
 
+      <div class="flex flex-wrap -mx-3 mb-2">
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+            Title
+          </label>
+          <input
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            id="grid-first-name" type="text" placeholder="Title" formControlName="title">
+
+
+          <p class="text-red-500 text-xs italic"
+            *ngIf="taskForm.get('title')?.hasError('required') && taskForm.get('title')?.touched">title is
+            required</p>
+
+
+          <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+        </div>
+
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+            Description
+          </label>
+
+          <textarea placeholder="Description"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            formControlName="description"></textarea>
+          <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+          <p class="text-red-500 text-xs italic"
+            *ngIf="taskForm.get('description')?.hasError('required') && taskForm.get('description')?.touched">title is
+            required</p>
+        </div>
+
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+            Priority
+          </label>
+
+          <mat-radio-group aria-label="Select an option" formControlName="priority">
+            <mat-radio-button value="1">Low</mat-radio-button>
+            <mat-radio-button value="2">Medium</mat-radio-button>
+            <mat-radio-button value="3">High</mat-radio-button>
+          </mat-radio-group>
+
+          <p class="text-red-500 text-xs italic"
+            *ngIf="taskForm.get('priority')?.hasError('required') && taskForm.get('priority')?.touched">title is
+            required</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap -mx-3 mb-2">
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+            Status
+          </label>
+          <div class="relative">
+            <select
+              class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              id="grid-state" formControlName="status">
+              <option [value]="null">-- select --</option>
+
+              <ng-container *ngFor="let item of statusArray">
+                <option [value]="item?.title">{{item?.title}}</option>
+              </ng-container>
+            </select>
+            <p class="text-red-500 text-xs italic"
+              *ngIf="taskForm.get('status')?.hasError('required') && taskForm.get('status')?.touched">title is
+              required</p>
+          </div>
+        </div>
+
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+            Assigned Person
+          </label>
+          <div class="relative">
+            <select
+              class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              id="grid-state" formControlName="assigned_person">
+              <option [value]="null">All</option>
+
+              <ng-container *ngFor="let item of persons">
+                <option [value]="item?.id">{{item?.name}}</option>
+              </ng-container>
+            </select>
+            <p class="text-red-500 text-xs italic"
+              *ngIf="taskForm.get('assigned_person')?.hasError('required') && taskForm.get('assigned_person')?.touched">
+              title is
+              required</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="flex flex-wrap -mx-3 mb-2">
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+            Start Date
+          </label>
+
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Inherited calendar color</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="start_date">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+
+          <p class="text-red-500 text-xs italic"
+            *ngIf="taskForm.get('start_date')?.hasError('required') && taskForm.get('start_date')?.touched">
+            title is
+            required</p>
+
+        </div>
+
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+            End Date
+          </label>
+
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Inherited calendar color</mat-label>
+            <input matInput [matDatepicker]="picker2" formControlName="end_date">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+          <p class="text-red-500 text-xs italic"
+            *ngIf="taskForm.get('end_date')?.hasError('required') && taskForm.get('end_date')?.touched">
+            title is
+            required</p>
+        </div>
+      </div>
+
+
+      <div class="subtaskSection m-3">
+        <h2>
+
+          Sub Task Section
+        </h2>
+      </div>
+      <div class="flex flex-wrap -ms-3 mb-2">
+        <div formArrayName="sub_task" class="flex flex-wrap mb-2 w-full items-center border-b pb-3"
+          *ngFor="let category of subTask.controls; index as i">
+          <ng-container [formGroupName]="i">
+            <div class="flex flex-wrap -mx-3 mb-2 md:w-11/12">
+              <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                  Title
+                </label>
+                <input
+                  class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                  id="grid-first-name" type="text" placeholder="Title" formControlName="sub_title">
+                <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+              </div>
+
+              <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                  Description
+                </label>
+
+                <textarea placeholder="Description"
+                  class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                  formControlName="sub_description"></textarea>
+                <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+              </div>
+            </div>
+            <div class="md:w-1/12">
+              <i class="cursor-pointer" inlineSVG="/assets/icons/new_delete.svg" (click)="removeTask(i)">
+              </i>
+            </div>
+          </ng-container>
+        </div>
+
+      </div>
+
+    </form>
+
+    <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      (click)="addSubTask()"> Add Task</button>
   </div>
 
   <div mat-dialog-actions align="end" class="buttons mt-2" style="padding: 1rem 0 0">
     <button class="button is-white px-5 py-0" (click)="onDismiss()">{{cancel}}</button>
-    <button class="button is-success px-5 py-0" (click)="onConfirm()">{{confirm}}</button>
+    <button class="button is-success bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      (click)="onConfirm()" [disabled]="
+                taskForm.get('title')?.hasError('required') ||
+                taskForm.get('description')?.hasError('required') ||
+                taskForm.get('priority')?.hasError('required') ||
+                taskForm.get('start_date')?.hasError('required') ||
+                taskForm.get('end_date')?.hasError('pattern') ||
+                taskForm.get('status')?.hasError('required') ||
+                taskForm.get('assigned_person')?.hasError('required')||
+                taskForm.get('title')?.hasError('minlength') ||
+                taskForm.get('description')?.hasError('maxlength')">{{confirm}}</button>
   </div>
 
 </div>

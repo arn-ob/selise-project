@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { StorageService } from 'src/app/core/services/storage.service';
 import { CreateTaskModalComponent } from '../create-task-modal/create-task-modal.component';
 
 @Component({
@@ -9,8 +10,11 @@ import { CreateTaskModalComponent } from '../create-task-modal/create-task-modal
   styleUrls: ['./task-dashboard.component.scss']
 })
 export class TaskDashboardComponent implements OnInit {
+  tasks;
 
-  taskForm: FormGroup;
+  todoTask: any = [];
+  progressTask: any = [];
+  doneTask: any = [];
   modalActive = false;
   loading = false;
 
@@ -52,23 +56,34 @@ export class TaskDashboardComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _storage: StorageService
   ) {
+    this.tasks = _storage.getItem("tasks");
 
-    this.taskForm = this.fb.group({
-      title: [null, [Validators.required, Validators.maxLength(100)]],
-      description: [null, [Validators.required, Validators.maxLength(150)]],
-      priority: [null, [Validators.required]],
-      start_date: [null, [Validators.required]],
-      end_date: [null, [Validators.required]],
-      status: [null, [Validators.required]],
-      assigned_person: [null, [Validators.required]],
-      attachment: [null],
-      sub_task: this.fb.array([this.createUserFrom()])
-    })
+    if (this.tasks) {
+      this.tasks.map((item: any) => {
+        if (item?.status == 'Done') {
+          this.doneTask.push(item);
+        }
+        if (item?.status == 'To-Do') {
+          this.todoTask.push(item);
+        }
+        if (item?.status == 'In Progress') {
+          this.progressTask.push(item);
+        }
+      })
+
+      console.log(this.progressTask, this.todoTask);
+
+    }
   }
 
   ngOnInit(): void {
+    console.log(this.tasks);
+
+
+
   }
 
   openTaskModal() {
@@ -77,9 +92,11 @@ export class TaskDashboardComponent implements OnInit {
       data: {
         title: 'Logout',
         message: 'আপনি লগ আউট করতে চান?',
-        confirm: 'হ্যাঁ',
-        cancel: 'না'
-      }
+        confirm: 'Create Task',
+        cancel: 'Cancel',
+        width: 70,
+        person: this.personArray
+      },
     }).afterClosed().subscribe(result => {
       console.log(result);
 
@@ -90,28 +107,6 @@ export class TaskDashboardComponent implements OnInit {
 
 
   }
-
-  get subTask() {
-    return this.taskForm.get('sub_task') as FormArray;
-  }
-
-  createUserFrom(): FormGroup {
-    return this.fb.group({
-      title: [null],
-      description: [null]
-    })
-  }
-
-
-  addSubTask() {
-    this.subTask.push(this.createUserFrom());
-  }
-
-  removeCategory(index: any) {
-    this.subTask.removeAt(index);
-  }
-
-
   updateTask() {
   }
 

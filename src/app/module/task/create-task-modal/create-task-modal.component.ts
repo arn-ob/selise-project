@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-create-task-modal',
@@ -13,19 +15,37 @@ export class CreateTaskModalComponent implements OnInit {
   message: string;
   confirm: string;
   cancel: string;
+  width: string;
+  persons;
+  oldTask;
 
+  statusArray = [
+    { title: 'To-Do' },
+    { title: 'In Progress' },
+    { title: 'Done' },
+  ]
+
+
+  seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
   taskForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
+    private storage: StorageService,
     public dialogRef: MatDialogRef<CreateTaskModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
+
+    this.oldTask = this.storage.getItem("tasks")
+    console.log(this.oldTask);
+
 
     this.title = data.title;
     this.message = data.message;
     this.confirm = data.confirm;
     this.cancel = data.cancel;
+    this.width = data.width;
+    this.persons = data.person
 
     this.taskForm = this.fb.group({
       title: [null, [Validators.required, Validators.maxLength(100)]],
@@ -44,6 +64,13 @@ export class CreateTaskModalComponent implements OnInit {
   }
 
   onConfirm(): void {
+    console.log(this.taskForm.value);
+
+    if (this.oldTask) {
+      this.storage.setItem('tasks', [...this.oldTask, this.taskForm.value], false)
+    } else {
+      this.storage.setItem('tasks', [this.taskForm.value], false)
+    }
     // Close the dialog, return true
     this.dialogRef.close(true);
   }
@@ -68,10 +95,12 @@ export class CreateTaskModalComponent implements OnInit {
 
   createUserFrom(): FormGroup {
     return this.fb.group({
-      title: [null],
-      description: [null]
+      sub_title: [null],
+      sub_description: [null]
     })
   }
+
+
 
 
 
